@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'screens/weather_search_page.dart';
+import 'package:provider/provider.dart';
+import 'models/favorites_model.dart';
+import 'repositories/item_repository_api.dart';
+import 'home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => FavoritesModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,13 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather App',
+      title: 'Campus Marketplace',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const WeatherSearchPage(),
+      home: HomePage(repository: ItemRepositoryApi()),
     );
   }
 }
